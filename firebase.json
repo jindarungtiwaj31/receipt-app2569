@@ -1,0 +1,24 @@
+{
+  "database": {
+    "rules": "firebase.rules.json"
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firebase.rules.json",
+      "README.md",
+      "FIREBASE_SETUP.md",
+      "DEPLOY.md",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
