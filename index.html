@@ -12,7 +12,7 @@
 <body>
 <header class="topbar">
   <div class="brand">
-    <span class="logos"><img src="garuda.svg" alt="ตราครุฑ"><img src="university-logo.svg" alt="โลโก้มหาวิทยาลัย"></span>
+    <span class="logos"><img id="brandLogo" src="" alt="โลโก้มหาวิทยาลัย"></span>
     <span><b>ระบบออกใบเสร็จรับเงิน</b><small>มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</small></span>
   </div>
   <span id="dbStatus" class="pill">กำลังเชื่อมต่อฐานข้อมูลกลาง...</span>
@@ -22,7 +22,7 @@
     <div><h1>ออกใบเสร็จ รับชำระ<br>และตรวจรายงานในระบบเดียว</h1><p>แยกสิทธิ์ Admin และ User พร้อมฐานข้อมูลกลางสำหรับใช้งานหลายเครื่อง เลขใบเสร็จอัตโนมัติ และพิมพ์ต้นฉบับ/สำเนา</p></div>
     <div class="card entry">
       <h2>เข้าสู่ระบบ</h2><p>เลือกบทบาทเพื่อเริ่มทำงาน</p>
-      <div class="choice"><button id="chooseAdmin" class="admin">◆<b>Admin</b><small>จัดการผู้ใช้งานและรายงาน</small></button><button id="chooseUser" class="user">●<b>User</b><small>บันทึกและพิมพ์ใบเสร็จ</small></button></div>
+      <div class="choice"><button id="chooseAdmin" class="admin" type="button">◆<b>Admin</b><small>จัดการผู้ใช้งานและรายงาน</small></button><button id="chooseUser" class="user" type="button">●<b>User</b><small>บันทึกและพิมพ์ใบเสร็จ</small></button></div>
       <form id="loginForm">
         <div id="adminFields" class="hidden"><label>Username<input id="adminUser" value="admin" autocomplete="off"></label><label>Password<input id="adminPass" type="password" value="9999"></label></div>
         <div id="userFields"><label>รหัสผู้ใช้งาน 4 หลัก<input id="userCode" maxlength="4" inputmode="numeric" placeholder="เช่น 1001"></label></div>
@@ -32,7 +32,7 @@
   </section>
 </main>
 <main id="app" class="workspace hidden">
-  <aside><b id="who"></b><small id="roleLabel"></small><nav id="nav"></nav><button id="logout" class="btn light">ออกจากระบบ</button></aside>
+  <aside><b id="who"></b><small id="roleLabel"></small><nav id="nav"></nav><button id="logout" class="btn light" type="button">ออกจากระบบ</button></aside>
   <section><h1 id="pageTitle"></h1><div id="content"></div></section>
 </main>
 <div id="printArea" class="printArea"></div>
