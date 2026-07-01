@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>ระบบออกใบเสร็จรับเงิน</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ซ่อนโลโก้มหาวิทยาลัยที่อยู่ใต้ครุฑในหน้าใบเสร็จ/ตอนพิมพ์ แต่ไม่กระทบโลโก้หน้าเว็บด้านบน */
+    .receipt .emblems img:not(:first-child),
+    .printArea .emblems img:not(:first-child) {
+      display: none !important;
+    }
+    @media print {
+      .receipt .emblems img:not(:first-child),
+      .printArea .emblems img:not(:first-child) {
+        display: none !important;
+      }
+    }
+  </style>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
