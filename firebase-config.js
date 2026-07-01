@@ -1,5 +1,8 @@
-// ตั้งค่าฐานข้อมูลกลางสำหรับระบบออกใบเสร็จรับเงิน RMUT
-// ใช้ค่า Firebase จากข้อมูลที่แนบ และประกาศตัวแปรสำรองให้รองรับทั้งเว็บเวอร์ชันไฟล์เดียวและเวอร์ชันแยกไฟล์
+// ตั้งค่าฐานข้อมูลกลางสำหรับระบบออกใบเสร็จ
+// โปรเจกต์ Firebase: rmut-receipt-app
+// หมายเหตุ: ค่า databaseURL ด้านล่างใช้ URL มาตรฐานกรณีสร้าง Realtime Database ที่ Singapore / asia-southeast1
+// ถ้าใน Firebase Console แสดง databaseURL คนละค่า ให้คัดลอกจาก Realtime Database > Data มาแทนค่า databaseURL นี้
+
 window.RECEIPT_APP_DATABASE_CONFIG = {
   enabled: true,
   provider: "firebase",
@@ -17,7 +20,3 @@ window.RECEIPT_APP_DATABASE_CONFIG = {
     measurementId: "G-1NETTTH9Q7"
   }
 };
-
-window.APP_FIREBASE_CONFIG = window.RECEIPT_APP_DATABASE_CONFIG.firebaseConfig;
-window.firebaseConfig = window.APP_FIREBASE_CONFIG;
-window.APP_ENABLE_FIREBASE = true;

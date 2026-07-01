@@ -1,85 +1,91 @@
 # วิธีตั้งค่าฐานข้อมูลกลาง Firebase Realtime Database
 
-โปรเจกต์นี้เป็นเว็บ Static HTML/CSS/JavaScript ที่เชื่อม Firebase Realtime Database เพื่อให้หลายเครื่องใช้ข้อมูลเดียวกันได้
+โปรเจกต์นี้เป็นเว็บ Static HTML/CSS/JavaScript แต่เพิ่มตัวเชื่อม Firebase Realtime Database เพื่อให้หลายเครื่องใช้ข้อมูลเดียวกันได้
 
-## สถานะ Firebase ของโปรเจกต์นี้
+> แพ็กนี้ใส่ค่า Firebase config ที่ผู้ใช้ส่งมาแล้ว แต่ยังต้องเปิด Realtime Database และตั้ง Rules ใน Firebase Console ด้วยบัญชีของผู้ใช้งานจริง
 
-ไฟล์ `firebase-config.js` ใส่ค่า Firebase ของโปรเจกต์ `rmut-receipt-app` แล้ว และเปิดใช้งาน Firebase แล้ว
 
-ค่าหลักที่ใช้:
+## ตั้งค่า Firebase ของโปรเจกต์นี้เรียบร้อยแล้ว
 
-```txt
-projectId: rmut-receipt-app
-authDomain: rmut-receipt-app.firebaseapp.com
-databaseURL: https://rmut-receipt-app-default-rtdb.asia-southeast1.firebasedatabase.app
+ไฟล์ `firebase-config.js` ในแพ็กนี้ใส่ค่า Firebase ที่คุณส่งมาแล้ว และเปิด `enabled: true` แล้ว
+
+ค่าที่ใส่ไว้:
+
+```js
+projectId: "rmut-receipt-app"
+authDomain: "rmut-receipt-app.firebaseapp.com"
+storageBucket: "rmut-receipt-app.firebasestorage.app"
+appId: "1:794635845962:web:0a8e7e2f77731b327b01b3"
+measurementId: "G-1NETTTH9Q7"
+databaseURL: "https://rmut-receipt-app-default-rtdb.asia-southeast1.firebasedatabase.app"
 ```
 
-## 1) เปิด Realtime Database
+หมายเหตุสำคัญ: ค่า config ที่ส่งมายังไม่มี `databaseURL` ผมจึงใส่ URL มาตรฐานสำหรับ Realtime Database ที่สร้างในโซน Singapore / asia-southeast1 ให้แล้ว ถ้าคุณสร้าง Database ใน location อื่น ให้ไปที่ Firebase Console > Realtime Database > Data แล้วคัดลอก URL จริงมาแทนค่า `databaseURL` ใน `firebase-config.js`
 
-1. เข้า Firebase Console
-2. เลือกโปรเจกต์ `rmut-receipt-app`
-3. ไปที่ `Build` > `Realtime Database`
-4. กด `Create Database` หากยังไม่ได้เปิด
-5. เลือก location ใกล้ไทย เช่น Singapore / asia-southeast1
-6. ใช้ Test mode ได้เฉพาะช่วงทดสอบ
+## 1) ตรวจ Project Firebase
 
-## 2) ตรวจค่า databaseURL
+โปรเจกต์ที่ใช้คือ `rmut-receipt-app` และใส่ Web App config ใน `firebase-config.js` แล้ว ขั้นตอนที่เหลือคือเปิด Realtime Database และตั้ง Rules
 
-ตรวจว่า URL ใน Firebase Console > Realtime Database > Data ตรงกับค่าใน `firebase-config.js`
+## 2) เปิด Realtime Database
 
-```txt
-https://rmut-receipt-app-default-rtdb.asia-southeast1.firebasedatabase.app
+1. ใน Firebase Console ไปที่ `Build` > `Realtime Database`
+2. กด `Create Database`
+3. เลือก location ใกล้ไทย เช่น Singapore / asia-southeast1 ถ้ามีให้เลือก
+4. เลือกเริ่มต้นแบบ Test mode ได้ในช่วงทดสอบ
+
+## 3) ตรวจค่า databaseURL ใน firebase-config.js
+
+ไฟล์นี้ตั้ง `enabled: true` แล้ว และใส่ config หลักครบแล้ว ยกเว้น `databaseURL` ที่ Firebase config ที่ส่งมาไม่มีมาให้ ผมใส่ค่าเริ่มต้นเป็น Singapore / asia-southeast1:
+
+```js
+databaseURL: "https://rmut-receipt-app-default-rtdb.asia-southeast1.firebasedatabase.app"
 ```
 
-ถ้า Firebase แสดง URL อื่น ให้แก้ `databaseURL` ใน `firebase-config.js` ให้ตรงกับ URL จริง
+ถ้า Realtime Database ของคุณอยู่ location อื่น ให้เปลี่ยนค่า `databaseURL` ให้ตรงกับ URL ที่เห็นในหน้า Realtime Database > Data
 
-## 3) ตั้ง Rules
+## 4) ตั้ง Rules สำหรับช่วงทดสอบ
 
-ไปที่ Firebase Console > Realtime Database > Rules แล้วนำเนื้อหาจากไฟล์ `firebase.rules.json` ไปวาง จากนั้นกด `Publish`
+ไปที่ Realtime Database > `Rules` แล้วใส่ rules จากไฟล์ `firebase.rules.json`
 
-Rules ปัจจุบันเปิดอ่าน/เขียนเฉพาะ path ที่ระบบใช้:
+Rules ชุดนี้เปิดอ่าน/เขียนเฉพาะ path `receipt-app` สำหรับงานทดสอบ/เดโม:
 
-- `receipt-app`
-- `receipt_app_main`
-
-และปิด root path อื่นไว้
-
-> หมายเหตุ: Rules ชุดนี้เหมาะกับช่วงทดสอบ/เดโม หากใช้งานกับข้อมูลเงินจริงหรือเปิดใช้งานสาธารณะ ควรเพิ่ม backend หรือ Firebase Authentication และ Rules ที่เข้มงวดกว่าเดิม
-
-## 4) ตั้งค่า GitHub Pages
-
-ใน repository ให้ไปที่ `Settings` > `Pages` แล้วตั้งค่า:
-
-```txt
-Source: Deploy from a branch
-Branch: main
-Folder: /(root)
+```json
+{
+  "rules": {
+    "receipt-app": {
+      ".read": true,
+      ".write": true
+    },
+    ".read": false,
+    ".write": false
+  }
+}
 ```
 
-หลังบันทึกแล้ว เว็บจะอยู่ที่:
+สำคัญ: ถ้าใช้งานจริงกับข้อมูลเงินจริงหรือเปิดสาธารณะ ควรเพิ่มระบบ Firebase Authentication หรือ backend เพิ่มเติม เพราะ Rules แบบทดสอบเปิดให้หน้าเว็บอ่าน/เขียนฐานข้อมูลได้
 
-```txt
-https://jindarungtiwaj31.github.io/receipt-app/
-```
+## 5) อัปโหลดขึ้น GitHub Pages
 
-## 5) วิธีเริ่มใช้งานหลังเชื่อมฐานกลาง
+หลังตรวจ `firebase-config.js` แล้ว ให้อัปโหลดไฟล์ทั้งหมดขึ้น GitHub Pages
 
-1. เข้าเว็บ GitHub Pages
-2. เลือก Admin และเข้าสู่ระบบด้วยบัญชี Admin เริ่มต้นที่ตั้งไว้ในหน้า Login
-3. ไปแท็บ `ผู้ใช้งาน`
-4. เพิ่ม User ด้วยรหัสตัวเลข 4 หลักเอง
-5. ให้เครื่อง User เปิด URL เดียวกัน แล้วเข้าสู่ระบบด้วยรหัส 4 หลักที่ Admin สร้าง
+ทุกเครื่องที่เปิด URL เดียวกันจะเห็นข้อมูลเดียวกัน และสถานะบนเว็บจะขึ้นว่า `ฐานข้อมูลกลางเชื่อมต่อแล้ว`
 
-เมื่อเชื่อมต่อสำเร็จ มุมบนของเว็บจะแสดงสถานะว่า `ฐานข้อมูลกลางเชื่อมต่อแล้ว`
+## 6) วิธีเริ่มใช้งานหลังเชื่อมฐานกลาง
 
-## 6) กรณีมีข้อมูล local เดิมก่อนเปิด Firebase
+1. เข้า Admin ด้วย `admin / admin123`
+2. ไปแท็บ `ตั้งค่า Admin` แล้วเปลี่ยนรหัสผ่าน Admin
+3. ไปแท็บ `ผู้ใช้งาน` แล้วเพิ่ม User 4 หลักเอง
+4. ไปแท็บ `เล่มที่/เลขที่` ตรวจสอบเล่มใบเสร็จที่ใช้งานอยู่
+5. เครื่อง User เข้าเว็บ URL เดียวกัน แล้วล็อกอินด้วยรหัส 4 หลักที่ Admin สร้าง
+
+## 7) กรณีมีข้อมูล local เดิมก่อนเปิด Firebase
 
 1. ตั้งค่า Firebase ให้เรียบร้อย
 2. เข้า Admin > `ฐานข้อมูลกลาง`
 3. กด `ส่งข้อมูลเครื่องนี้ขึ้นฐานกลาง`
 4. เปิดอีกเครื่องด้วย URL เดียวกันเพื่อตรวจว่าข้อมูล sync แล้ว
 
-## 7) การสำรองและกู้คืนข้อมูล
+## 8) การสำรองและกู้คืนข้อมูล
 
 เข้า Admin > `ฐานข้อมูลกลาง`
 
